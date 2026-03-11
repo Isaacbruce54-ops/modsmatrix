@@ -79,3 +79,85 @@ footer {
 
 </body>
 </html>
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(name, price){
+
+cart.push({name, price});
+
+saveCart();
+updateCart();
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+saveCart();
+updateCart();
+
+}
+
+function saveCart(){
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+}
+
+function updateCart(){
+
+let cartList = document.getElementById("cart-items");
+let totalElement = document.getElementById("cart-total");
+
+cartList.innerHTML = "";
+
+let total = 0;
+
+cart.forEach((item,index)=>{
+
+total += item.price;
+
+let li = document.createElement("li");
+
+li.innerHTML =
+item.name +
+" - £" + item.price +
+" <button onclick='removeItem("+index+")'>Remove</button>";
+
+cartList.appendChild(li);
+
+});
+
+totalElement.innerText = total.toFixed(2);
+
+}
+
+function searchProducts(){
+
+let input = document.getElementById("search").value.toLowerCase();
+let cards = document.querySelectorAll(".product");
+
+cards.forEach(card=>{
+
+let title = card.querySelector("h3").innerText.toLowerCase();
+
+if(title.includes(input)){
+
+card.style.display = "block";
+
+}else{
+
+card.style.display = "none";
+
+}
+
+});
+
+}
+
+updateCart();
+
+</script>
