@@ -4,294 +4,660 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MODMATRIX</title>
-
 <style>
+*{
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#05060b;
+    --bg2:#0a0d18;
+    --panel:#0c1120cc;
+    --line:#1a2442;
+    --cyan:#3cf2ff;
+    --cyan-soft:#1ec8ff;
+    --purple:#b14cff;
+    --pink:#ff48d2;
+    --text:#eef7ff;
+    --muted:#9db0d1;
+}
 
 body{
-margin:0;
-font-family:Orbitron, Arial;
-background:#05070d;
-color:white;
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(60,242,255,.12), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(177,76,255,.14), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(255,72,210,.10), transparent 32%),
+        linear-gradient(180deg, #04050a 0%, #070b14 50%, #04050a 100%);
+    min-height:100vh;
 }
 
-/* HEADER */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.07));
+}
 
 header{
-background:#0a0f1a;
-padding:25px;
-text-align:center;
-border-bottom:1px solid #00ffa6;
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(12px);
+    background:rgba(5,8,16,.72);
+    border-bottom:1px solid rgba(60,242,255,.18);
+    box-shadow:0 0 30px rgba(60,242,255,.08);
 }
 
-header h1{
-color:#00ffa6;
-letter-spacing:3px;
+.topbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
 }
 
-/* NAV */
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+}
+
+.brand img{
+    width:54px;
+    height:54px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 10px rgba(60,242,255,.55))
+        drop-shadow(0 0 18px rgba(177,76,255,.35));
+    border-radius:12px;
+    background:transparent;
+}
+
+.brand-text h1{
+    margin:0;
+    font-size:24px;
+    letter-spacing:2px;
+    color:#fff;
+    text-shadow:
+        0 0 6px rgba(60,242,255,.4),
+        0 0 16px rgba(177,76,255,.25);
+}
+
+.brand-text p{
+    margin:3px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
 
 nav{
-background:#090d16;
-padding:12px;
-text-align:center;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
 }
 
 nav a{
-color:#00ffa6;
-margin:0 15px;
-text-decoration:none;
-font-weight:bold;
+    color:var(--text);
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+    padding:10px 14px;
+    border:1px solid transparent;
+    border-radius:12px;
+    transition:.25s ease;
 }
 
 nav a:hover{
-text-shadow:0 0 10px #00ffa6;
+    border-color:rgba(60,242,255,.35);
+    background:rgba(60,242,255,.08);
+    box-shadow:0 0 14px rgba(60,242,255,.18);
 }
 
-/* MAIN */
-
-main{
-max-width:1200px;
-margin:auto;
-padding:30px;
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:46px 20px 24px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:28px;
+    align-items:center;
 }
 
-/* SEARCH */
-
-.search{
-text-align:center;
-margin-bottom:30px;
+.hero-copy{
+    background:linear-gradient(180deg, rgba(12,17,32,.78), rgba(9,13,24,.74));
+    border:1px solid rgba(60,242,255,.16);
+    border-radius:24px;
+    padding:32px;
+    box-shadow:
+        0 0 0 1px rgba(177,76,255,.05) inset,
+        0 0 24px rgba(60,242,255,.08),
+        0 0 36px rgba(177,76,255,.05);
 }
 
-.search input{
-padding:10px;
-width:260px;
-border:none;
-background:#0c1322;
-color:white;
-border-radius:5px;
+.kicker{
+    display:inline-block;
+    margin-bottom:14px;
+    padding:8px 12px;
+    border:1px solid rgba(177,76,255,.25);
+    border-radius:999px;
+    color:#ecd7ff;
+    background:rgba(177,76,255,.08);
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
 }
 
-/* PRODUCTS */
+.hero h2{
+    margin:0 0 14px;
+    font-size:50px;
+    line-height:1;
+    letter-spacing:1px;
+    text-shadow:
+        0 0 12px rgba(60,242,255,.16),
+        0 0 18px rgba(255,72,210,.10);
+}
+
+.hero p{
+    margin:0;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.6;
+    max-width:700px;
+}
+
+.hero-actions{
+    display:flex;
+    gap:12px;
+    margin-top:24px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    border-radius:14px;
+    padding:13px 18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.btn-primary{
+    color:#041018;
+    background:linear-gradient(90deg, var(--cyan), #7ff8ff);
+    box-shadow:0 0 18px rgba(60,242,255,.32);
+}
+
+.btn-primary:hover{
+    transform:translateY(-1px);
+    box-shadow:0 0 24px rgba(60,242,255,.44);
+}
+
+.btn-secondary{
+    color:#fff;
+    background:linear-gradient(90deg, rgba(177,76,255,.18), rgba(255,72,210,.12));
+    border:1px solid rgba(177,76,255,.28);
+}
+
+.btn-secondary:hover{
+    box-shadow:0 0 18px rgba(177,76,255,.18);
+}
+
+.hero-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100%;
+}
+
+.hero-logo-card{
+    width:100%;
+    padding:24px;
+    border-radius:28px;
+    border:1px solid rgba(177,76,255,.16);
+    background:
+        radial-gradient(circle at top, rgba(60,242,255,.08), transparent 35%),
+        linear-gradient(180deg, rgba(10,15,26,.92), rgba(8,10,20,.82));
+    box-shadow:
+        0 0 26px rgba(177,76,255,.08),
+        inset 0 0 32px rgba(60,242,255,.04);
+}
+
+.hero-logo-card img{
+    width:100%;
+    display:block;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 20px rgba(60,242,255,.28))
+        drop-shadow(0 0 28px rgba(255,72,210,.16));
+}
+
+.main{
+    max-width:1200px;
+    margin:auto;
+    padding:10px 20px 60px;
+}
+
+.section-title{
+    font-size:28px;
+    margin:18px 0 18px;
+    letter-spacing:1px;
+}
+
+.searchbar{
+    margin:0 0 24px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.searchbar input{
+    flex:1;
+    min-width:240px;
+    padding:14px 16px;
+    border-radius:14px;
+    border:1px solid rgba(60,242,255,.16);
+    background:rgba(9,13,24,.85);
+    color:#fff;
+    outline:none;
+    box-shadow:inset 0 0 14px rgba(60,242,255,.03);
+}
+
+.searchbar input:focus{
+    border-color:rgba(60,242,255,.4);
+    box-shadow:0 0 0 3px rgba(60,242,255,.08);
+}
 
 .products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:22px;
 }
 
 .card{
-background:#0b1322;
-border-radius:10px;
-padding:20px;
-box-shadow:0 0 20px #00ffa620;
-transition:0.3s;
+    position:relative;
+    overflow:hidden;
+    border-radius:22px;
+    border:1px solid rgba(60,242,255,.14);
+    background:linear-gradient(180deg, rgba(11,17,33,.95), rgba(8,12,22,.95));
+    box-shadow:
+        0 0 18px rgba(60,242,255,.06),
+        0 0 24px rgba(177,76,255,.05);
+    transition:.28s ease;
 }
 
 .card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 20px #00ffa6;
+    transform:translateY(-6px);
+    border-color:rgba(60,242,255,.28);
+    box-shadow:
+        0 0 26px rgba(60,242,255,.12),
+        0 0 32px rgba(255,72,210,.08);
 }
 
-.card img{
-width:100%;
-border-radius:6px;
+.card-top{
+    height:170px;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(60,242,255,.22), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(255,72,210,.20), transparent 24%),
+        linear-gradient(135deg, #07101f 0%, #0c1630 45%, #140b27 100%);
+    border-bottom:1px solid rgba(60,242,255,.08);
+    position:relative;
+}
+
+.card-top::after{
+    content:"";
+    position:absolute;
+    inset:auto -20% 20px -20%;
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
+    opacity:.75;
+    box-shadow:0 0 14px rgba(60,242,255,.45);
+}
+
+.badge{
+    position:absolute;
+    top:16px;
+    left:16px;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:.8px;
+    color:#fff;
+    background:rgba(9,14,24,.78);
+    border:1px solid rgba(177,76,255,.25);
+    border-radius:999px;
+    padding:8px 10px;
+}
+
+.card-body{
+    padding:18px;
+}
+
+.card-body h3{
+    margin:0 0 8px;
+    font-size:22px;
+}
+
+.card-body p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.meta{
+    margin:16px 0 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
 }
 
 .price{
-color:#00ffa6;
-font-size:22px;
-margin:10px 0;
+    font-size:24px;
+    font-weight:bold;
+    color:var(--cyan);
+    text-shadow:0 0 10px rgba(60,242,255,.18);
 }
 
-/* BUTTON */
-
-button{
-background:#00ffa6;
-border:none;
-padding:10px 16px;
-font-weight:bold;
-border-radius:6px;
-cursor:pointer;
+.stock{
+    font-size:12px;
+    color:#dcbcff;
+    padding:7px 10px;
+    border-radius:999px;
+    background:rgba(177,76,255,.10);
+    border:1px solid rgba(177,76,255,.18);
 }
 
-button:hover{
-background:#00cc84;
+.card-actions{
+    display:flex;
+    gap:10px;
 }
 
-/* CART */
+.card-actions button{
+    flex:1;
+}
 
 .cart{
-margin-top:40px;
-background:#0b1322;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 20px #00ffa620;
+    margin-top:34px;
+    border-radius:24px;
+    border:1px solid rgba(60,242,255,.16);
+    background:linear-gradient(180deg, rgba(11,17,33,.95), rgba(8,12,22,.95));
+    padding:24px;
+    box-shadow:
+        0 0 18px rgba(60,242,255,.06),
+        0 0 24px rgba(177,76,255,.05);
 }
 
-/* FOOTER */
+.cart h3{
+    margin:0 0 14px;
+    font-size:26px;
+}
+
+#cart-items{
+    list-style:none;
+    padding:0;
+    margin:0 0 18px;
+}
+
+#cart-items li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    color:#dfe8ff;
+}
+
+.remove-btn{
+    padding:8px 10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#fff;
+    background:linear-gradient(90deg, rgba(255,72,210,.8), rgba(177,76,255,.8));
+}
+
+.cart-total{
+    font-size:22px;
+    font-weight:bold;
+    color:var(--cyan);
+    margin-bottom:16px;
+}
 
 footer{
-margin-top:60px;
-background:#0a0f1a;
-padding:20px;
-text-align:center;
-border-top:1px solid #00ffa6;
+    margin-top:30px;
+    padding:24px 20px 40px;
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid rgba(60,242,255,.12);
+    background:rgba(4,6,11,.65);
 }
 
+@media (max-width: 900px){
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .hero h2{
+        font-size:38px;
+    }
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    nav{
+        width:100%;
+    }
+}
+
+@media (max-width: 600px){
+    .brand-text h1{
+        font-size:20px;
+    }
+
+    .hero-copy{
+        padding:22px;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .card-actions{
+        flex-direction:column;
+    }
+}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>MODMATRIX</h1>
-<p>Cyber Marketplace</p>
+    <div class="topbar">
+        <div class="brand">
+            <img src="modmatrix-logo.png" alt="MODMATRIX logo">
+            <div class="brand-text">
+                <h1>MODMATRIX</h1>
+                <p>Cyber digital storefront</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#products">Store</a>
+            <a href="#cart">Cart</a>
+            <a href="#">Support</a>
+        </nav>
+    </div>
 </header>
 
-<nav>
-<a href="#">Home</a>
-<a href="#">Store</a>
-<a href="#">Support</a>
-</nav>
+<section class="hero">
+    <div class="hero-copy">
+        <span class="kicker">Neon Cyber Interface</span>
+        <h2>Enter the MODMATRIX</h2>
+        <p>
+            A sharper cyber-styled storefront with neon panels, glowing accents,
+            futuristic cards, and your custom emblem built directly into the design.
+        </p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Browse Products</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('cart').scrollIntoView({behavior:'smooth'})">Open Cart</button>
+        </div>
+    </div>
 
-<main>
+    <div class="hero-logo">
+        <div class="hero-logo-card">
+            <img src="modmatrix-logo.png" alt="MODMATRIX emblem">
+        </div>
+    </div>
+</section>
 
-<div class="search">
-<input id="search" placeholder="Search products..." onkeyup="searchProducts()">
-</div>
+<main class="main">
+    <div class="searchbar">
+        <input id="search" type="text" placeholder="Search products..." onkeyup="searchProducts()">
+    </div>
 
-<h2>Products</h2>
+    <h2 id="products" class="section-title">Featured Products</h2>
 
-<div class="products">
+    <section class="products">
+        <article class="card product">
+            <div class="card-top">
+                <div class="badge">Starter</div>
+            </div>
+            <div class="card-body">
+                <h3>Starter License</h3>
+                <p>Entry package with fast setup and core access.</p>
+                <div class="meta">
+                    <div class="price">£9.99</div>
+                    <div class="stock">In Stock</div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Starter License', 9.99)">Add to Cart</button>
+                    <button class="btn btn-secondary">Details</button>
+                </div>
+            </div>
+        </article>
 
-<div class="card product">
-<img src="https://via.placeholder.com/300x180">
-<h3>Starter License</h3>
-<p>Basic features</p>
-<div class="price">£9.99</div>
-<button onclick="addToCart('Starter License',9.99)">Add to Cart</button>
-</div>
+        <article class="card product">
+            <div class="card-top">
+                <div class="badge">Premium</div>
+            </div>
+            <div class="card-body">
+                <h3>Premium License</h3>
+                <p>Expanded package with priority access and more features.</p>
+                <div class="meta">
+                    <div class="price">£19.99</div>
+                    <div class="stock">Popular</div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Premium License', 19.99)">Add to Cart</button>
+                    <button class="btn btn-secondary">Details</button>
+                </div>
+            </div>
+        </article>
 
-<div class="card product">
-<img src="https://via.placeholder.com/300x180">
-<h3>Premium License</h3>
-<p>Full access</p>
-<div class="price">£19.99</div>
-<button onclick="addToCart('Premium License',19.99)">Add to Cart</button>
-</div>
+        <article class="card product">
+            <div class="card-top">
+                <div class="badge">Elite</div>
+            </div>
+            <div class="card-body">
+                <h3>Elite Package</h3>
+                <p>Full package with all updates and top-tier access.</p>
+                <div class="meta">
+                    <div class="price">£39.99</div>
+                    <div class="stock">Top Tier</div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Elite Package', 39.99)">Add to Cart</button>
+                    <button class="btn btn-secondary">Details</button>
+                </div>
+            </div>
+        </article>
+    </section>
 
-<div class="card product">
-<img src="https://via.placeholder.com/300x180">
-<h3>Elite License</h3>
-<p>Everything unlocked</p>
-<div class="price">£39.99</div>
-<button onclick="addToCart('Elite License',39.99)">Add to Cart</button>
-</div>
-
-</div>
-
-<div class="cart">
-
-<h2>Cart</h2>
-
-<ul id="cart-items"></ul>
-
-<p>Total: £<span id="cart-total">0</span></p>
-
-<button onclick="checkout()">Checkout</button>
-
-</div>
-
+    <section class="cart" id="cart">
+        <h3>Your Cart</h3>
+        <ul id="cart-items"></ul>
+        <div class="cart-total">Total: £<span id="cart-total">0.00</span></div>
+        <button class="btn btn-primary" onclick="checkout()">Checkout</button>
+    </section>
 </main>
 
 <footer>
-© 2026 MODMATRIX
+    © 2026 MODMATRIX
 </footer>
 
 <script>
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function addToCart(name,price){
-
-cart.push({name,price});
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-updateCart();
-
+function addToCart(name, price){
+    cart.push({name, price});
+    saveCart();
+    updateCart();
 }
 
 function removeItem(index){
+    cart.splice(index, 1);
+    saveCart();
+    updateCart();
+}
 
-cart.splice(index,1);
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-updateCart();
-
+function saveCart(){
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function updateCart(){
+    const cartList = document.getElementById("cart-items");
+    const totalElement = document.getElementById("cart-total");
 
-let cartList=document.getElementById("cart-items");
-let totalElement=document.getElementById("cart-total");
+    cartList.innerHTML = "";
+    let total = 0;
 
-cartList.innerHTML="";
+    cart.forEach((item, index) => {
+        total += item.price;
 
-let total=0;
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>${item.name} - £${item.price.toFixed(2)}</span>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        `;
+        cartList.appendChild(li);
+    });
 
-cart.forEach((item,index)=>{
+    if(cart.length === 0){
+        cartList.innerHTML = "<li><span>Your cart is empty.</span></li>";
+    }
 
-total+=item.price;
-
-let li=document.createElement("li");
-
-li.innerHTML=item.name+" - £"+item.price+
-" <button onclick='removeItem("+index+")'>X</button>";
-
-cartList.appendChild(li);
-
-});
-
-totalElement.innerText=total.toFixed(2);
-
+    totalElement.textContent = total.toFixed(2);
 }
 
 function searchProducts(){
+    const input = document.getElementById("search").value.toLowerCase();
+    const cards = document.querySelectorAll(".product");
 
-let input=document.getElementById("search").value.toLowerCase();
-
-let cards=document.querySelectorAll(".product");
-
-cards.forEach(card=>{
-
-let title=card.querySelector("h3").innerText.toLowerCase();
-
-if(title.includes(input)){
-
-card.style.display="block";
-
-}else{
-
-card.style.display="none";
-
-}
-
-});
-
+    cards.forEach(card => {
+        const title = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = title.includes(input) ? "block" : "none";
+    });
 }
 
 function checkout(){
-
-alert("Redirect to payment system.");
-
+    alert("Connect your payment link or checkout flow here.");
 }
 
 updateCart();
-
 </script>
 
 </body>
 </html>
-
