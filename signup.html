@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MODMATRIX Sign Up</title>
+<style>
+*{box-sizing:border-box}
+
+:root{
+  --bg:#05060b;
+  --panel:rgba(12,17,32,.92);
+  --line:rgba(60,242,255,.18);
+  --cyan:#3cf2ff;
+  --purple:#b14cff;
+  --pink:#ff48d2;
+  --text:#eef7ff;
+  --muted:#9db0d1;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(60,242,255,.12), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(177,76,255,.14), transparent 28%),
+    radial-gradient(circle at 50% 80%, rgba(255,72,210,.10), transparent 32%),
+    linear-gradient(180deg, #04050a 0%, #070b14 50%, #04050a 100%);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+
+.card{
+  width:min(460px,92vw);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:
+    0 0 24px rgba(60,242,255,.08),
+    0 0 32px rgba(177,76,255,.05);
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.logo h1{
+  margin:0;
+  font-size:30px;
+  letter-spacing:2px;
+  color:#fff;
+  text-shadow:
+    0 0 8px rgba(60,242,255,.35),
+    0 0 16px rgba(177,76,255,.2);
+}
+
+.logo p{
+  margin:8px 0 0;
+  color:var(--muted);
+}
+
+label{
+  display:block;
+  margin:14px 0 8px;
+  font-weight:bold;
+  color:#dbe9ff;
+}
+
+input{
+  width:100%;
+  padding:14px 15px;
+  border-radius:14px;
+  border:1px solid rgba(60,242,255,.16);
+  background:#0a1020;
+  color:#fff;
+  outline:none;
+}
+
+input:focus{
+  border-color:rgba(60,242,255,.45);
+  box-shadow:0 0 0 3px rgba(60,242,255,.08);
+}
+
+button{
+  width:100%;
+  margin-top:18px;
+  padding:14px 16px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  color:#081018;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(60,242,255,.22);
+}
+
+button:hover{
+  opacity:.96;
+}
+
+.small{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.msg{
+  min-height:20px;
+  margin-top:14px;
+  text-align:center;
+  color:#7fffd4;
+}
+
+.bottom{
+  margin-top:18px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.bottom a{
+  color:var(--cyan);
+  text-decoration:none;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <h1>MODMATRIX</h1>
+      <p>Create your account</p>
+    </div>
+
+    <label for="name">Username</label>
+    <input id="name" type="text" placeholder="Choose a username">
+
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="you@example.com">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Create a password">
+
+    <label for="confirm">Confirm Password</label>
+    <input id="confirm" type="password" placeholder="Repeat your password">
+
+    <button onclick="fakeSignup()">Create Account</button>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="small">
+      Demo page only. Real account creation needs a server, database, and secure password handling.
+    </div>
+
+    <div class="bottom">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+  </div>
+
+<script>
+function fakeSignup(){
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const confirm = document.getElementById("confirm").value.trim();
+  const msg = document.getElementById("msg");
+
+  if(!name || !email || !password || !confirm){
+    msg.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  if(password !== confirm){
+    msg.textContent = "Passwords do not match.";
+    return;
+  }
+
+  if(password.length < 6){
+    msg.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
+  msg.textContent = "Demo only. Real signup needs a server and database.";
+}
+</script>
+</body>
+</html>
