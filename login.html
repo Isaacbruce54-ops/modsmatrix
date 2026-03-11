@@ -6,91 +6,146 @@
 <title>MODMATRIX Login</title>
 <style>
 *{box-sizing:border-box}
+
+:root{
+  --bg:#05060b;
+  --panel:rgba(12,17,32,.92);
+  --line:rgba(60,242,255,.18);
+  --cyan:#3cf2ff;
+  --purple:#b14cff;
+  --pink:#ff48d2;
+  --text:#eef7ff;
+  --muted:#9db0d1;
+}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
   min-height:100vh;
   display:grid;
   place-items:center;
+  color:var(--text);
   background:
-    radial-gradient(circle at top left, rgba(0,255,255,.12), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,0,255,.12), transparent 30%),
-    #05060b;
-  color:#fff;
+    radial-gradient(circle at 20% 20%, rgba(60,242,255,.12), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(177,76,255,.14), transparent 28%),
+    radial-gradient(circle at 50% 80%, rgba(255,72,210,.10), transparent 32%),
+    linear-gradient(180deg, #04050a 0%, #070b14 50%, #04050a 100%);
 }
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+}
+
 .card{
-  width:min(420px, 92vw);
-  background:rgba(12,17,32,.9);
-  border:1px solid rgba(60,242,255,.2);
-  border-radius:20px;
-  padding:28px;
-  box-shadow:0 0 30px rgba(60,242,255,.08);
+  width:min(430px,92vw);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:
+    0 0 24px rgba(60,242,255,.08),
+    0 0 32px rgba(177,76,255,.05);
 }
-h1{
-  margin:0 0 8px;
-  color:#3cf2ff;
+
+.logo{
   text-align:center;
+  margin-bottom:18px;
+}
+
+.logo h1{
+  margin:0;
+  font-size:30px;
   letter-spacing:2px;
+  color:#fff;
+  text-shadow:
+    0 0 8px rgba(60,242,255,.35),
+    0 0 16px rgba(177,76,255,.2);
 }
-p{
-  margin:0 0 22px;
-  text-align:center;
-  color:#a7b7d6;
+
+.logo p{
+  margin:8px 0 0;
+  color:var(--muted);
 }
+
 label{
   display:block;
   margin:14px 0 8px;
   font-weight:bold;
+  color:#dbe9ff;
 }
+
 input{
   width:100%;
-  padding:13px 14px;
-  border-radius:12px;
-  border:1px solid rgba(60,242,255,.18);
+  padding:14px 15px;
+  border-radius:14px;
+  border:1px solid rgba(60,242,255,.16);
   background:#0a1020;
   color:#fff;
   outline:none;
 }
+
 input:focus{
-  border-color:#3cf2ff;
+  border-color:rgba(60,242,255,.45);
   box-shadow:0 0 0 3px rgba(60,242,255,.08);
 }
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+  gap:10px;
+}
+
+.row a,.bottom a{
+  color:var(--cyan);
+  text-decoration:none;
+}
+
 button{
   width:100%;
   margin-top:18px;
-  padding:13px 16px;
+  padding:14px 16px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(90deg,#3cf2ff,#b14cff);
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
   color:#081018;
   font-weight:bold;
   cursor:pointer;
+  box-shadow:0 0 18px rgba(60,242,255,.22);
 }
+
 button:hover{
-  opacity:.95;
+  opacity:.96;
 }
-.small{
-  margin-top:14px;
-  text-align:center;
-  font-size:14px;
-  color:#a7b7d6;
-}
-.small a{
-  color:#3cf2ff;
-  text-decoration:none;
-}
+
 .msg{
+  min-height:20px;
   margin-top:14px;
   text-align:center;
   color:#7fffd4;
-  min-height:20px;
+}
+
+.bottom{
+  margin-top:18px;
+  text-align:center;
+  color:var(--muted);
 }
 </style>
 </head>
 <body>
   <div class="card">
-    <h1>MODMATRIX</h1>
-    <p>Sign in to your account</p>
+    <div class="logo">
+      <h1>MODMATRIX</h1>
+      <p>Sign in to your account</p>
+    </div>
 
     <label for="email">Email</label>
     <input id="email" type="email" placeholder="you@example.com">
@@ -98,27 +153,34 @@ button:hover{
     <label for="password">Password</label>
     <input id="password" type="password" placeholder="Enter your password">
 
+    <div class="row">
+      <label style="margin:0;font-weight:normal;color:var(--muted);display:flex;align-items:center;gap:8px;">
+        <input type="checkbox" style="width:auto;padding:0;"> Remember me
+      </label>
+      <a href="#">Forgot password?</a>
+    </div>
+
     <button onclick="fakeLogin()">Sign In</button>
 
     <div class="msg" id="msg"></div>
 
-    <div class="small">
-      No account yet? <a href="#">Create one</a>
+    <div class="bottom">
+      No account yet? <a href="signup.html">Create one</a>
     </div>
   </div>
 
 <script>
 function fakeLogin(){
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const msg = document.getElementById('msg');
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
 
   if(!email || !password){
     msg.textContent = "Please enter your email and password.";
     return;
   }
 
-  msg.textContent = "Front-end demo only. Real sign-in needs a server.";
+  msg.textContent = "Demo only. Real sign-in needs a server and database.";
 }
 </script>
 </body>
