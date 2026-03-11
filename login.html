@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MODMATRIX Login</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,255,.12), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,0,255,.12), transparent 30%),
+    #05060b;
+  color:#fff;
+}
+.card{
+  width:min(420px, 92vw);
+  background:rgba(12,17,32,.9);
+  border:1px solid rgba(60,242,255,.2);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 0 30px rgba(60,242,255,.08);
+}
+h1{
+  margin:0 0 8px;
+  color:#3cf2ff;
+  text-align:center;
+  letter-spacing:2px;
+}
+p{
+  margin:0 0 22px;
+  text-align:center;
+  color:#a7b7d6;
+}
+label{
+  display:block;
+  margin:14px 0 8px;
+  font-weight:bold;
+}
+input{
+  width:100%;
+  padding:13px 14px;
+  border-radius:12px;
+  border:1px solid rgba(60,242,255,.18);
+  background:#0a1020;
+  color:#fff;
+  outline:none;
+}
+input:focus{
+  border-color:#3cf2ff;
+  box-shadow:0 0 0 3px rgba(60,242,255,.08);
+}
+button{
+  width:100%;
+  margin-top:18px;
+  padding:13px 16px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#3cf2ff,#b14cff);
+  color:#081018;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{
+  opacity:.95;
+}
+.small{
+  margin-top:14px;
+  text-align:center;
+  font-size:14px;
+  color:#a7b7d6;
+}
+.small a{
+  color:#3cf2ff;
+  text-decoration:none;
+}
+.msg{
+  margin-top:14px;
+  text-align:center;
+  color:#7fffd4;
+  min-height:20px;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>MODMATRIX</h1>
+    <p>Sign in to your account</p>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="you@example.com">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Enter your password">
+
+    <button onclick="fakeLogin()">Sign In</button>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="small">
+      No account yet? <a href="#">Create one</a>
+    </div>
+  </div>
+
+<script>
+function fakeLogin(){
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const msg = document.getElementById('msg');
+
+  if(!email || !password){
+    msg.textContent = "Please enter your email and password.";
+    return;
+  }
+
+  msg.textContent = "Front-end demo only. Real sign-in needs a server.";
+}
+</script>
+</body>
+</html>
