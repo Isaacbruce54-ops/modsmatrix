@@ -3,89 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Website</title>
+<title>MODMATRIX</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f1115;
+color:white;
 }
 
-header {
-    background: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
+header{
+background:#151821;
+padding:20px;
+text-align:center;
 }
 
-nav {
-    background: #555;
-    padding: 10px;
-    text-align: center;
+nav{
+background:#1e2430;
+padding:12px;
+text-align:center;
 }
 
-nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: bold;
+nav a{
+color:white;
+margin:0 12px;
+text-decoration:none;
+font-weight:bold;
 }
 
-nav a:hover {
-    text-decoration: underline;
+nav a:hover{
+color:#00ffa6;
 }
 
-main {
-    padding: 20px;
+main{
+padding:30px;
+max-width:1100px;
+margin:auto;
 }
 
-footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
+
+.card{
+background:#1a1f2b;
+padding:20px;
+border-radius:10px;
+}
+
+.card img{
+width:100%;
+border-radius:6px;
+}
+
+.price{
+color:#00ffa6;
+font-size:20px;
+margin:10px 0;
+}
+
+button{
+padding:10px 16px;
+background:#00ffa6;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#00cc84;
+}
+
+.cart{
+background:#151821;
+padding:20px;
+border-radius:10px;
+margin-top:40px;
+}
+
+footer{
+background:#151821;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>My First Website</h1>
-<p>Welcome to my site!</p>
+<h1>MODMATRIX</h1>
+<p>Premium Digital Licenses</p>
 </header>
 
 <nav>
 <a href="#">Home</a>
-<a href="#">About</a>
-<a href="#">Contact</a>
+<a href="#">Store</a>
+<a href="#">Support</a>
 </nav>
 
 <main>
-<h2>Home</h2>
-<p>This is my first website. You can add text, images, videos, and more.</p>
 
-<h2>Example Image</h2>
-<img src="https://via.placeholder.com/400" alt="Example Image">
+<h2>Featured Products</h2>
+
+<div class="products">
+
+<div class="card">
+<img src="https://via.placeholder.com/300x180">
+<h3>Starter License</h3>
+<p>Basic access license</p>
+<div class="price">£9.99</div>
+<button onclick="addToCart('Starter License',9.99)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/300x180">
+<h3>Premium License</h3>
+<p>Full features unlocked</p>
+<div class="price">£19.99</div>
+<button onclick="addToCart('Premium License',19.99)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/300x180">
+<h3>Elite License</h3>
+<p>All features + updates</p>
+<div class="price">£39.99</div>
+<button onclick="addToCart('Elite License',39.99)">Add to Cart</button>
+</div>
+
+</div>
+
+<div class="cart">
+
+<h2>Your Cart</h2>
+
+<ul id="cart-items"></ul>
+
+<p>Total: £<span id="cart-total">0</span></p>
+
+<button onclick="checkout()">Checkout</button>
+
+</div>
+
 </main>
 
 <footer>
-<p>© 2026 My Website</p>
+<p>© 2026 MODMATRIX</p>
 </footer>
 
-</body>
-</html>
 <script>
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function addToCart(name, price){
+function addToCart(name,price){
 
-cart.push({name, price});
+cart.push({name,price});
 
 saveCart();
 updateCart();
@@ -103,7 +183,7 @@ updateCart();
 
 function saveCart(){
 
-localStorage.setItem("cart", JSON.stringify(cart));
+localStorage.setItem("cart",JSON.stringify(cart));
 
 }
 
@@ -112,52 +192,36 @@ function updateCart(){
 let cartList = document.getElementById("cart-items");
 let totalElement = document.getElementById("cart-total");
 
-cartList.innerHTML = "";
+cartList.innerHTML="";
 
-let total = 0;
+let total=0;
 
 cart.forEach((item,index)=>{
 
-total += item.price;
+total+=item.price;
 
-let li = document.createElement("li");
+let li=document.createElement("li");
 
-li.innerHTML =
-item.name +
-" - £" + item.price +
+li.innerHTML=item.name+" - £"+item.price+
 " <button onclick='removeItem("+index+")'>Remove</button>";
 
 cartList.appendChild(li);
 
 });
 
-totalElement.innerText = total.toFixed(2);
+totalElement.innerText=total.toFixed(2);
 
 }
 
-function searchProducts(){
+function checkout(){
 
-let input = document.getElementById("search").value.toLowerCase();
-let cards = document.querySelectorAll(".product");
-
-cards.forEach(card=>{
-
-let title = card.querySelector("h3").innerText.toLowerCase();
-
-if(title.includes(input)){
-
-card.style.display = "block";
-
-}else{
-
-card.style.display = "none";
-
-}
-
-});
+alert("Proceed to payment system.");
 
 }
 
 updateCart();
 
 </script>
+
+</body>
+</html>
